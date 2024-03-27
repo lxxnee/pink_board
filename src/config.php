@@ -11,4 +11,9 @@
 // ■ PHP Path 관련																													
 	define("ROOT", $_SERVER["DOCUMENT_ROOT"]."/"); // 웹서버 root 패스																																		
 	define("FILE_LIB_DB", ROOT."lib/lib_db.php"); // DB 파일 패스																												
+
+
+
+// 유저정보
+	define("REQUEST_METHOD", strtoupper($_SERVER["REQUEST_METHOD"]));
 ?>

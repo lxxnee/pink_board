@@ -6,7 +6,7 @@ function my_db_conn(){
 		PDO::ATTR_ERRMODE	=>	PDO::ERRMODE_EXCEPTION,								
 		PDO::ATTR_DEFAULT_FETCH_MODE	=> PDO::FETCH_ASSOC								
 	];																			
-    return new PDO(MARIADB_DSN, USER, MARIADB_PASSWORD, $option);
+    return new PDO(MARIADB_DSN, MARIADB_USER, MARIADB_PASSWORD, $option);
 
 }
 
@@ -33,6 +33,7 @@ function db_select_boards_paging(&$conn, &$array_param) {
     " SELECT "
     ." no "
     ." ,title "
+    ." ,content "
     ." ,created_at "
     ." FROM "
     ." boards "
@@ -72,4 +73,23 @@ function db_insert_boards(&$conn, &$array_param){
 
     // 리턴
     return $stmt->rowCount();
+}
+
+function db_select_boards_no(&$conn, &$array_param){
+    $sql =
+        " SELECT "
+        ." no "
+        ." ,title "
+        ." ,content "
+        ." ,created_at "
+        ." FROM "
+        ." boards "
+        ." WHERE "
+        ." no = :no "
+;
+    $stmt = $conn->prepare($sql);
+    $stmt->execute($array_param);
+    $result = $stmt->fetchAll();
+    
+    return $result;
 }

@@ -77,15 +77,30 @@ h1 {
 
 /* header */
 section { 
-    width: 50vw;
-    display: flex;
-    flex-wrap: nowrap;
-    margin: auto;
-    justify-content:space-around;
+    max-width: 40vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    margin: auto; 
     padding-bottom: 25px;
-
-   
+    
 }
+
+.a{
+    grid-column :2/3;
+}
+.b {
+    grid-column :3/4;
+    text-align: center;
+}
+.c {
+    grid-column :4/5;
+   text-align: right;
+}
+.d {
+    grid-column :5/6;
+    text-align: right;
+}
+
 
 /* main */
 li { 
@@ -260,4 +275,26 @@ li:last-child {
     border-radius: 30px;
 }
 
+
+/* delete */
+.delete {
+    background-color: #F9F5F6;
+    padding:3rem;
+    max-width: 700px;
+    margin: 20px auto;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 1.5rem;
+    
+}
+
+/* header */
+.header {
+    width: 50vw;
+    display: flex;
+    flex-wrap: nowrap;
+    margin: auto;
+    justify-content:space-around;
+    padding-bottom: 25px;
+}
 
