@@ -110,9 +110,9 @@ li {
 
 }
 
-li:last-child {
+/* li:last-child {
     margin-bottom: 50px;
-}
+} */
 .line-title {
     margin-bottom: 30px;
 }
@@ -220,7 +220,7 @@ li:last-child {
     transform: translateX(-100%);
 }
 .section [id='slide03']:checked ~ .slidewrap .slidelist > li {
-    transform: translateX(-204%);
+    transform: translateX(-201%);
 }
 .section [id='slide04']:checked ~ .slidewrap .slidelist > li {
     transform: translateX(-304%);

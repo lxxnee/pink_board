@@ -1,17 +1,86 @@
+<?php
+require_once( $_SERVER["DOCUMENT_ROOT"]."/config.php"); // 설정 파일 호출
+require_once(FILE_LIB_DB); // DB관련 라이브러리
+
+try {
+    $conn = my_db_conn();
+    if(REQUEST_METHOD === "GET") {
+        // 파라미터 획득
+        $no = isset($_GET["no"]) ? $_GET["no"] : "";  // no 획득
+        $page = isset($_GET["page"]) ? $_GET["page"] : ""; // page 획득
+        
+        // 파라미터 예외처리
+        $arr_err_param = [];
+        if($no === ""){
+            $arr_err_param[] = "no";
+        }
+        if($page === ""){
+            $arr_err_param[] = "page";
+        }
+        if(count($arr_err_param) > 0){
+            throw new Exception("Parameter Error: ".implode(". ",$arr_err_param));
+        }
+        
+        $arr_param = [
+            "no" => $no
+        ];
+        $result = db_select_boards_no($conn, $arr_param);
+        
+        if(count($result)!= 1){
+           throw new Exception("Select Boards no count");
+        }
+        $item = $result[0];
+    }
+  else if(REQUEST_METHOD === "POST"){
+       $no = isset($_POST["no"]) ? $_POST["no"] : "";
+       $page = isset($_POST["page"]) ? $_POST["page"] : "";
+       $title = isset($_POST["title"]) ? $_POST["title"] : "";
+       $content = isset($_POST["content"]) ? $_POST["content"] : "";
+
+       $arr_err_param = [];
+       if($no === ""){
+        $arr_err_param[] = "no";
+       }
+       if($page === ""){
+        $arr_err_param[] = "page";
+       }
+       if($title === ""){
+        $arr_err_param[] = "title";
+       }
+       if($content === ""){
+        $arr_err_param[] = "content";
+       }
+       if(count($arr_err_param) > 0){
+        throw new Exception("Parameter Error: ".implode("," ,$arr_err_param));
+       }
+      
+       $conn->beginTransaction();
+       $result = db_update_boards_no($conn, $arr_param);
+       
+  }
+} catch (\Throwable $e) {
+    
+}
+
+
+
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>작성 페이지</title>
+  <title>수정 페이지</title>
   <link rel="stylesheet" href="./css/board.css ">
 </head>
 
 <body>
-
   <header>
-    <h1><a href="./index.html">mini board</a></h1>
+    <h1><a href="./index.html">Pink Board</a></h1>
     <hr>
   </header>
   <main>
@@ -26,14 +95,14 @@
     <form action="./index.html" method="post">
       <div class="center-c">
         <div class="it">
-          <div>2024-03-26</div>
+          <div><?php echo $item["created_at"]?></div>
         </div>
         <div class="it">
         <label for="title" >
           <div>제목</div>
         </label>
         <div class="line-content">
-          <textarea name="title" id="title" cols="15" rows="3"></textarea>
+          <textarea name="title" id="title" cols="15" rows="3"><?php echo $item["title"];?></textarea>
         </div>
       </div>
       <div class="itt">
@@ -41,7 +110,7 @@
           <div>내용</div>
         </label>
         <div class="line-content">
-          <textarea name="content" id="content" cols="30" rows="10"></textarea>
+          <textarea name="content" id="content" cols="30" rows="10"><?php echo $item["content"];?></textarea>
         </div>
       </div>
       </div>
