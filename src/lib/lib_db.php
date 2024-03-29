@@ -93,3 +93,34 @@ function db_select_boards_no(&$conn, &$array_param){
     
     return $result;
 }
+
+function db_update_boards_no(&$conn, &$array_param) {
+    $sql =
+        " UPDATE "
+        ." boards "
+        ." SET "
+        ." title = :title "
+        ." ,content = :content "
+        ." WHERE "
+        ." no = :no "
+        ;
+    $stmt = $conn->prepare($sql);
+    $stmt->execute($array_param);
+    
+    return $stmt->rowCount();
+}
+
+function db_delete_boards_no(&$conn, &$array_param){
+    $sql = 
+       " UPDATE "
+       ." boards "
+       ." SET "
+       ." deleted_at = NOW()"
+       ." WHERE "
+       ." no = :no"
+    ;
+    $stmt = $conn->prepare($sql);
+    $stmt->execute($array_param);
+    
+    return $stmt->rowCount();
+}

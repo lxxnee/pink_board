@@ -223,7 +223,7 @@ li {
     transform: translateX(-201%);
 }
 .section [id='slide04']:checked ~ .slidewrap .slidelist > li {
-    transform: translateX(-304%);
+    transform: translateX(-303%);
 }
 
 .line-title {

@@ -3,6 +3,8 @@ require_once( $_SERVER["DOCUMENT_ROOT"]."/config.php"); // 설정 파일 호출
 require_once(FILE_LIB_DB); // DB관련 라이브러리
 $list_cnt = 4; // 한 페이지 최대 표시 수
 $page_num = 1; // 페이지 번호 초기화
+$tmp_now_item = null;
+
 try {
   $conn = my_db_conn(); // connection 함수 호출
   $page_num = isset($_GET["page"]) ? $_GET["page"] : $page_num; // 파라미터에서 page 획득
@@ -27,7 +29,10 @@ try {
       break;
     }
   }
+  
   $result[] = $tmp_now_item; // 현재 게시글 result에 추가
+
+ 
 } catch (\Throwable $e) {
   echo $e->getMessage();
   exit;
@@ -36,6 +41,8 @@ try {
     $conn = null;
   }
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ko">
