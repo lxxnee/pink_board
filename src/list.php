@@ -11,7 +11,7 @@ try {
   $max_page_num = ceil($result_board_cnt / $list_cnt); // 최대 페이지 수
   $offset = $list_cnt * ($page_num-1);
   $prev_page_num = ($page_num - 1) < 1 ? 1 : ($page_num - 1); // 이전 버튼 페이지 번호
-  $next_page_num = ($page_num + 1) > $max_page_num ? ($page_num = 1) : ($page_num + 1); // 다음 버튼 페이지 번호
+  $next_page_num = ($page_num + 1) > $max_page_num ? 1 : ($page_num + 1); // 다음 버튼 페이지 번호
   // 게시글 리스트
   $arr_param = [
     "list_cnt" => $list_cnt
